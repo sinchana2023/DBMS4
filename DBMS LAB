@@ -1,0 +1,313 @@
+mysql> create sailor(sid int,sname varchar(10),rating int,age int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sailor(sid int,sname varchar(10),rating int,age int)' at line 1
+mysql> create database program1;
+Query OK, 1 row affected (0.13 sec)
+
+mysql> use program1;
+Database changed
+mysql> create sailor(sid int,sname varchar(10),rating int,age int);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sailor(sid int,sname varchar(10),rating int,age int)' at line 1
+mysql> create table sailor(sid int,sname varchar(10),rating int,age int);
+Query OK, 0 rows affected (0.31 sec)
+
+mysql> create table boat(bid integer,bname varchar(10),color varchar(10));
+Query OK, 0 rows affected (0.26 sec)
+
+mysql> create reserves(sid int,bid int,primary key(sid,bid) foreign key(sid) references silor(sid),foreign key(bid) references boat(bid));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'reserves(sid int,bid int,primary key(sid,bid) foreign key(sid) references silor(' at line 1
+mysql> create reserves(sid int,bid int,primary key(sid,bid),foreign key(sid) references silor(sid),foreign key(bid) references boat(bid));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'reserves(sid int,bid int,primary key(sid,bid),foreign key(sid) references silor(' at line 1
+mysql> create reserves(sid int,bid int,primary key(sid,bid),foreign key(sid) references sailor(sid),foreign key(bid) references boat(bid));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'reserves(sid int,bid int,primary key(sid,bid),foreign key(sid) references sailor' at line 1
+mysql> create reserves(sid int,bid int day date,primary key(sid,bid),foreign key(sid) references sailor(sid),foreign key(bid) references boat(bid));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'reserves(sid int,bid int day date,primary key(sid,bid),foreign key(sid) referenc' at line 1
+mysql> delete table sailor;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table sailor' at line 1
+mysql> delete sailor;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> create database sailor;
+Query OK, 1 row affected (0.07 sec)
+
+mysql> ise sailor;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ise sailor' at line 1
+mysql> use sailor;
+Database changed
+mysql> create table sailor(sid int primary key,sname varchar(10),rating int,age int);
+Query OK, 0 rows affected (0.30 sec)
+
+mysql>  create table boat(bid integer primary key,bname varchar(10),color varchar(10));
+Query OK, 0 rows affected (0.23 sec)
+
+mysql>  create reserves(sid int,bid int day date,primary key(sid,bid),foreign key(sid) references sailor(sid),foreign key(bid) references boat(bid));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'reserves(sid int,bid int day date,primary key(sid,bid),foreign key(sid) referenc' at line 1
+mysql>  create table reserves(sid int,bid int day date,primary key(sid,bid),foreign key(sid) references sailor(sid),foreign key(bid) references boat(bid));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'day date,primary key(sid,bid),foreign key(sid) references sailor(sid),foreign ke' at line 1
+mysql>  create table reserves(sid int,bid,int day date,primary key(sid,bid),foreign key(sid) references sailor(sid),foreign key(bid) references boat(bid));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',int day date,primary key(sid,bid),foreign key(sid) references sailor(sid),forei' at line 1
+mysql>  create table reserves(sid int,bid int,day date,primary key(sid,bid),foreign key(sid) references sailor(sid),foreign key(bid) references boat(bid));
+Query OK, 0 rows affected (0.31 sec)
+
+mysql> desc sailor;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| sid    | int         | NO   | PRI | NULL    |       |
+| sname  | varchar(10) | YES  |     | NULL    |       |
+| rating | int         | YES  |     | NULL    |       |
+| age    | int         | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc boat;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| bid   | int         | NO   | PRI | NULL    |       |
+| bname | varchar(10) | YES  |     | NULL    |       |
+| color | varchar(10) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc reserves;
++-------+------+------+-----+---------+-------+
+| Field | Type | Null | Key | Default | Extra |
++-------+------+------+-----+---------+-------+
+| sid   | int  | NO   | PRI | NULL    |       |
+| bid   | int  | NO   | PRI | NULL    |       |
+| day   | date | YES  |     | NULL    |       |
++-------+------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into sailor(sid,sname,rating,integer)values(1,'ram',5);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'integer)values(1,'ram',5)' at line 1
+mysql> insert into sailor(sid,sname,rating,age)values(1,'ram',5,34);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into sailor(sid,sname,rating,age)values(5,'krishna',4,35);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into sailor(sid,sname,rating,age)values(7,'somu',5,40);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into sailor(sid,sname,rating,age)values(8,'raghu',7,30);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into sailor(sid,sname,rating,age)values(2,'shivu',6,29);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select*from sailor;
++-----+---------+--------+------+
+| sid | sname   | rating | age  |
++-----+---------+--------+------+
+|   1 | ram     |      5 |   34 |
+|   2 | shivu   |      6 |   29 |
+|   5 | krishna |      4 |   35 |
+|   7 | somu    |      5 |   40 |
+|   8 | raghu   |      7 |   30 |
++-----+---------+--------+------+
+5 rows in set (0.00 sec)
+
+mysql> insert into boat(bid,bname,color)values(1,'titanic','black');
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into boat(bid,bname,color)values(5,'INS Vikram','white');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into boat(bid,bname,color)values(2,'INS arjun','blue');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into boat(bid,bname,color)values(4,'sailpacific','brown');
+ERROR 1406 (22001): Data too long for column 'bname' at row 1
+mysql> insert into boat(bid,bname,color)values(4,'sailpaci','brown');
+Query OK, 1 row affected (0.14 sec)
+
+mysql> insert into boat(bid,bname,color)values(7,'sailindia','peach');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select*from boat;
++-----+------------+-------+
+| bid | bname      | color |
++-----+------------+-------+
+|   1 | titanic    | black |
+|   2 | INS arjun  | blue  |
+|   4 | sailpaci   | brown |
+|   5 | INS Vikram | white |
+|   7 | sailindia  | peach |
++-----+------------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into reserves(sid.bid,day)values(1,2,'2004-02-05');
+ERROR 1054 (42S22): Unknown column 'sid.bid' in 'field list'
+mysql> insert into reserves(sid,bid,day)values(1,2,'2004-02-05');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into reserves(sid,bid,day)values(2,3,'2005-01-05');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`sailor`.`reserves`, CONSTRAINT `reserves_ibfk_2` FOREIGN KEY (`bid`) REFERENCES `boat` (`bid`))
+mysql> insert into reserves(sid,bid,day)values(2,4,'2008-02-05');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into reserves(sid,bid,day)values(5,5,'2010-02-05');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into reserves(sid,bid,day)values(7,7,'2010-02-05');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into reserves(sid,bid,day)values(8,1,'2011-02-05');
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select* from reserves;
++-----+-----+------------+
+| sid | bid | day        |
++-----+-----+------------+
+|   1 |   2 | 2004-02-05 |
+|   2 |   4 | 2008-02-05 |
+|   5 |   5 | 2010-02-05 |
+|   7 |   7 | 2010-02-05 |
+|   8 |   1 | 2011-02-05 |
++-----+-----+------------+
+5 rows in set (0.00 sec)
+
+mysql> select* sname,age from sailors;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sname,age from sailors' at line 1
+mysql> select *sname,age from sailors;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sname,age from sailors' at line 1
+mysql> select sname,age from sailors;
+ERROR 1146 (42S02): Table 'sailor.sailors' doesn't exist
+mysql> select sname,age from sailor;
++---------+------+
+| sname   | age  |
++---------+------+
+| ram     |   34 |
+| shivu   |   29 |
+| krishna |   35 |
+| somu    |   40 |
+| raghu   |   30 |
++---------+------+
+5 rows in set (0.00 sec)
+
+mysql> alter table sailor rename column sname to sailor_name;
+Query OK, 0 rows affected (0.23 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc sailor;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| sid         | int         | NO   | PRI | NULL    |       |
+| sailor_name | varchar(10) | YES  |     | NULL    |       |
+| rating      | int         | YES  |     | NULL    |       |
+| age         | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select* from sailor where rating>7;
+Empty set (0.00 sec)
+
+mysql> select* from sailor where rating>5;
++-----+-------------+--------+------+
+| sid | sailor_name | rating | age  |
++-----+-------------+--------+------+
+|   2 | shivu       |      6 |   29 |
+|   8 | raghu       |      7 |   30 |
++-----+-------------+--------+------+
+2 rows in set (0.00 sec)
+
+mysql> select * from reserves,sailor,boat where sailor.sid=reserves.sid,boat.bid=reserves.bid,boat.color='black';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',boat.bid=reserves.bid,boat.color='black'' at line 1
+mysql> select * from reserves,sailor,boat where sailor.sid=reserves.sid and boat.bid=reserves.bid and boat.color='black';
++-----+-----+------------+-----+-------------+--------+------+-----+---------+-------+
+| sid | bid | day        | sid | sailor_name | rating | age  | bid | bname   | color |
++-----+-----+------------+-----+-------------+--------+------+-----+---------+-------+
+|   8 |   1 | 2011-02-05 |   8 | raghu       |      7 |   30 |   1 | titanic | black |
++-----+-----+------------+-----+-------------+--------+------+-----+---------+-------+
+1 row in set (0.00 sec)
+
+mysql> select color from boat,sailor,reserves where reserves.bid=boat.bid and reserves.sid=sailor.sid and sailor.name='ram';
+ERROR 1054 (42S22): Unknown column 'sailor.name' in 'where clause'
+mysql> select color from boat,sailor,reserves where reserves.bid=boat.bid and reserves.sid=sailor.sid and sailor.sailor_name='ram';
++-------+
+| color |
++-------+
+| blue  |
++-------+
+1 row in set (0.00 sec)
+
+mysql> insert into boat(bid,bname,color)values(11,'sailarabia','red');
+Query OK, 1 row affected (0.21 sec)
+
+mysql> select sailor_name from sailor,boat,reserves where sailor.sid=reserves.sid and boat.bid=reserves.bid where bid like '%7';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where bid like '%7'' at line 1
+mysql> select sailor_name from sailor,boat,reserves where sailor.sid=reserves.sid and boat.bid=reserves.bid where bid=7;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where bid=7' at line 1
+mysql> select sailor_name from sailor,boat,reserves where sailor.sid=reserves.sid and boat.bid=reserves.bid where boat.bid=7;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where boat.bid=7' at line 1
+mysql> select sailor_name from sailor,boat,reserves where sailor.sid=reserves.sid and boat.bid=reserves.bid where boat.bid=7;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where boat.bid=7' at line 1
+mysql> select sailor_name from sailor,boat,reserves where sailor.sid=reserves.sid and boat.bid=reserves.bid and boat.bid=7;
++-------------+
+| sailor_name |
++-------------+
+| somu        |
++-------------+
+1 row in set (0.01 sec)
+
+mysql> select sailor
+    -> select sailor_name from sailor,boat,reserves where sailor.sid=reseves.sid and reserves.bid=boat.bid and boat.color='peach';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select sailor_name from sailor,boat,reserves where sailor.sid=reseves.sid and re' at line 2
+mysql> select sailor_name from sailor,boat,reserves where sailor.sid=reserves.sid and reserves.bid=boat.bid and boat.color='peach';
++-------------+
+| sailor_name |
++-------------+
+| somu        |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select sailor_name from sailor,boat,reserves where sailor.sid=reserves.sid and reserves.bid=boat.bid and boat.color='white';
++-------------+
+| sailor_name |
++-------------+
+| krishna     |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select sailor_name from sailor where sailor_name='k______%a;
+    '> select sailor_name from sailor where sailor_name='k______%a;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'k______%a' at line 2
+mysql> select sailor_name from sailor where sailor_name='k______%a';
+Empty set (0.00 sec)
+
+mysql> select sailor_name from sailor where sailor_name='k_____%a';
+Empty set (0.00 sec)
+
+mysql> select sailor_name from sailor where sailor_name like'k_____%a';
++-------------+
+| sailor_name |
++-------------+
+| krishna     |
++-------------+
+1 row in set (0.03 sec)
+
+mysql> select* from sailor where sailor.age=select MAX(age);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select MAX(age)' at line 1
+mysql> select * MAX(age) from sailor;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'MAX(age) from sailor' at line 1
+mysql> select sailor_name,age fom sailor where age=(select max(age) from sailor);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sailor where age=(select max(age) from sailor)' at line 1
+mysql> select sailor_name,age fom sailor where age=(select max(age) from sailor);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sailor where age=(select max(age) from sailor)' at line 1
+mysql>
+mysql> select sailor_name,age fom sailor where age=(select max(age) from sailor);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sailor where age=(select max(age) from sailor)' at line 1
+mysql> select sailor_name,age from sailor where age=(select max(age) from sailor);
++-------------+------+
+| sailor_name | age  |
++-------------+------+
+| somu        |   40 |
++-------------+------+
+1 row in set (0.04 sec)
+
+mysql>  commit
+    -> commit;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'commit' at line 2
+mysql> COMMIT;
+Query OK, 0 rows affected (0.00 sec)
