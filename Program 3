@@ -1,0 +1,303 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 13
+Server version: 8.0.34 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database salesman;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use salesman;
+Database changed
+mysql> create table salesman(salesman_id int primary key,name char(20),city char(20),commission int);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create customer(customer_id int,Cust_name char(20),city char(20));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'customer(customer_id int,Cust_name char(20),city char(20))' at line 1
+mysql> create table customer(customer_id int primary key,Cust_name char(20),city char(20));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> create table orders(ord_no int primary key,purchase_amt real,ord_date date customer_id int,salesman_id int,primary key(salesman_id,customer_id),foreign key(customer_id) references customer(customer_id),foreign key(salesman_id) references salesman(salesman_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'customer_id int,salesman_id int,primary key(salesman_id,customer_id),foreign key' at line 1
+mysql> create table orders(ord_no int primary key,purchase_amt real,ord_date date customer_id int,salesman_id int,foreign key(customer_id) references customer(customer_id),foreign key(salesman_id) references salesman(salesman_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'customer_id int,salesman_id int,foreign key(customer_id) references customer(cus' at line 1
+mysql> create table orders(ord_no int primary key,purchase_amt real,ord_date date customer_id int,salesman_id int,foreign key(customer_id) references customer(customer_id),foreign key(salesman_id) references salesman(salesman_id));
+ create table orders(ord_no int primary key,purchase_amt real,ord_date date customer_id int,salesman_id int,foreign key(customer_id) references customer(cuscreate table orders(ord_no int primary key,purchase_amt real,ord_date date customer_id int,salesman_id int,foreign key(customer_id) references customer(customer_id),foreign key(salesman_id) references salesman(salesman_id));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'customer_id int,salesman_id int,foreign key(customer_id) references customer(cus' at line 1
+mysql> create table orders(ord_no int primary key,purchase_amt real,ord_date date,customer_id int,salesman_id int,foreign key(customer_id) references customer(customer_id),foreign key(salesman_id) references salesman(salesman_id));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc salesman;
++-------------+----------+------+-----+---------+-------+
+| Field       | Type     | Null | Key | Default | Extra |
++-------------+----------+------+-----+---------+-------+
+| salesman_id | int      | NO   | PRI | NULL    |       |
+| name        | char(20) | YES  |     | NULL    |       |
+| city        | char(20) | YES  |     | NULL    |       |
+| commission  | int      | YES  |     | NULL    |       |
++-------------+----------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> desc customer;
++-------------+----------+------+-----+---------+-------+
+| Field       | Type     | Null | Key | Default | Extra |
++-------------+----------+------+-----+---------+-------+
+| customer_id | int      | NO   | PRI | NULL    |       |
+| Cust_name   | char(20) | YES  |     | NULL    |       |
+| city        | char(20) | YES  |     | NULL    |       |
++-------------+----------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc orders;
++--------------+--------+------+-----+---------+-------+
+| Field        | Type   | Null | Key | Default | Extra |
++--------------+--------+------+-----+---------+-------+
+| ord_no       | int    | NO   | PRI | NULL    |       |
+| purchase_amt | double | YES  |     | NULL    |       |
+| ord_date     | date   | YES  |     | NULL    |       |
+| customer_id  | int    | YES  | MUL | NULL    |       |
+| salesman_id  | int    | YES  | MUL | NULL    |       |
++--------------+--------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into salesman(salesman_id,name,city,commision)values(12,'sinchana','bengaluru',500);
+ERROR 1054 (42S22): Unknown column 'commision' in 'field list'
+mysql> insert into salesman(salesman_id,name,city,commission)values(12,'sinchana','bengaluru',500);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into salesman(salesman_id,name,city,commission)values(10,'rachana','belagavi',700);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into salesman(salesman_id,name,city,commission)values(9,'inchara','bellary',900);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into salesman(salesman_id,name,city,commission)values(7,'rani','mysore',1000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into salesman(salesman_id,name,city,commission)values(5,'ramya','bidar',150);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from salesman;
++-------------+----------+-----------+------------+
+| salesman_id | name     | city      | commission |
++-------------+----------+-----------+------------+
+|           5 | ramya    | bidar     |        150 |
+|           7 | rani     | mysore    |       1000 |
+|           9 | inchara  | bellary   |        900 |
+|          10 | rachana  | belagavi  |        700 |
+|          12 | sinchana | bengaluru |        500 |
++-------------+----------+-----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into customer(customer_id,Cust_name,city)values(1,'raj','bengaluru');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customer(customer_id,Cust_name,city)values(10,'ramesh','tumakuru');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customer(customer_id,Cust_name,city)values(11,'rajesh','cmk');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customer(customer_id,Cust_name,city)values(9,'rakesh','cth');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into customer(customer_id,Cust_name,city)values(15,'prakash','bengaluru');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from customer;
++-------------+-----------+-----------+
+| customer_id | Cust_name | city      |
++-------------+-----------+-----------+
+|           1 | raj       | bengaluru |
+|           9 | rakesh    | cth       |
+|          10 | ramesh    | tumakuru  |
+|          11 | rajesh    | cmk       |
+|          15 | prakash   | bengaluru |
++-------------+-----------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> insert into orders(ord_no,purchase_amt,ord_date,customer_id,salesman_id)values(1,10000,'2004-05-05',15,12);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders(ord_no,purchase_amt,ord_date,customer_id,salesman_id)values(5,20000,'2006-06-05',10,10);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders(ord_no,purchase_amt,ord_date,customer_id,salesman_id)values(25,25000,'2006-07-06',1,7);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders(ord_no,purchase_amt,ord_date,customer_id,salesman_id)values(35,15000,'2016-09-06',9,5);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders(ord_no,purchase_amt,ord_date,customer_id,salesman_id)values(6,35000,'2019-09-19',11,9);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders(ord_no,purchase_amt,ord_date,customer_id,salesman_id)values(46,40000,'2020-09-01',7,9);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`salesman`.`orders`, CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`))
+mysql> insert into orders(ord_no,purchase_amt,ord_date,customer_id,salesman_id)values(46,40000,'2020-09-01',7,9);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`salesman`.`orders`, CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`))
+mysql> insert into orders(ord_no,purchase_amt,ord_date,customer_id,salesman_id)values(96,40000,'2020-09-01',7,9);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`salesman`.`orders`, CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`))
+mysql> insert into orders(ord_no,purchase_amt,ord_date,customer_id,salesman_id)values(96,40000,'2020-09-01',11,9);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders(ord_no,purchase_amt,ord_date,customer_id,salesman_id)values(97,50000,'2021-09-01',9,9);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from orders;
++--------+--------------+------------+-------------+-------------+
+| ord_no | purchase_amt | ord_date   | customer_id | salesman_id |
++--------+--------------+------------+-------------+-------------+
+|      1 |        10000 | 2004-05-05 |          15 |          12 |
+|      5 |        20000 | 2006-06-05 |          10 |          10 |
+|      6 |        35000 | 2019-09-19 |          11 |           9 |
+|     25 |        25000 | 2006-07-06 |           1 |           7 |
+|     35 |        15000 | 2016-09-06 |           9 |           5 |
+|     96 |        40000 | 2020-09-01 |          11 |           9 |
+|     97 |        50000 | 2021-09-01 |           9 |           9 |
++--------+--------------+------------+-------------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> select customer_id,Cust_name from customer;
++-------------+-----------+
+| customer_id | Cust_name |
++-------------+-----------+
+|           1 | raj       |
+|           9 | rakesh    |
+|          10 | ramesh    |
+|          11 | rajesh    |
+|          15 | prakash   |
++-------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select name from salesman where commission=(select max(commission) from salesman);
++------+
+| name |
++------+
+| rani |
++------+
+1 row in set (0.00 sec)
+
+mysql> select *from orders order by purchase_amt desc;
++--------+--------------+------------+-------------+-------------+
+| ord_no | purchase_amt | ord_date   | customer_id | salesman_id |
++--------+--------------+------------+-------------+-------------+
+|     97 |        50000 | 2021-09-01 |           9 |           9 |
+|     96 |        40000 | 2020-09-01 |          11 |           9 |
+|      6 |        35000 | 2019-09-19 |          11 |           9 |
+|     25 |        25000 | 2006-07-06 |           1 |           7 |
+|      5 |        20000 | 2006-06-05 |          10 |          10 |
+|     35 |        15000 | 2016-09-06 |           9 |           5 |
+|      1 |        10000 | 2004-05-05 |          15 |          12 |
++--------+--------------+------------+-------------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> select Cust_name from customer where city in(select city from salesman);
++-----------+
+| Cust_name |
++-----------+
+| raj       |
+| prakash   |
++-----------+
+2 rows in set (0.00 sec)
+
+mysql> delete from orders where year(order.date<2018);
+ERROR 1054 (42S22): Unknown column 'order.date' in 'where clause'
+mysql> delete from orders where year(order.ord_date<2018);
+ERROR 1054 (42S22): Unknown column 'order.ord_date' in 'where clause'
+mysql> delete from orders where year(ord_date<2018);
+ERROR 1292 (22007): Incorrect date value: '2018' for column 'ord_date' at row 1
+mysql> delete from orders where year(ord_date)<2018;
+Query OK, 4 rows affected (0.01 sec)
+
+mysql> select * from orders;
++--------+--------------+------------+-------------+-------------+
+| ord_no | purchase_amt | ord_date   | customer_id | salesman_id |
++--------+--------------+------------+-------------+-------------+
+|      6 |        35000 | 2019-09-19 |          11 |           9 |
+|     96 |        40000 | 2020-09-01 |          11 |           9 |
+|     97 |        50000 | 2021-09-01 |           9 |           9 |
++--------+--------------+------------+-------------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into salesman(salesman_id,name,city,commission)values(20,'kavya','bihar',600);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select salesman_id,name from salesman s,order o where s.sid=o.sid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order o where s.sid=o.sid' at line 1
+mysql> select salesman_id,name from salesman s,orders o where s.sid=o.sid;
+ERROR 1052 (23000): Column 'salesman_id' in field list is ambiguous
+mysql> select s.salesman_id,name from salesman s,orders o where s.sid=o.sid;
+ERROR 1054 (42S22): Unknown column 's.sid' in 'where clause'
+mysql> select s.salesman_id,name from salesman s,orders o where s.salesman_id=o.salesman_id;
++-------------+---------+
+| salesman_id | name    |
++-------------+---------+
+|           9 | inchara |
+|           9 | inchara |
+|           9 | inchara |
++-------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select distinct s.salesman_id,name from salesman s,orders o where s.salesman_id=o.salesman_id;
++-------------+---------+
+| salesman_id | name    |
++-------------+---------+
+|           9 | inchara |
++-------------+---------+
+1 row in set (0.00 sec)
+
+mysql> select Cust_name,purchase_amt from customer c,orders o where c.customer_id=o.customer_id;
++-----------+--------------+
+| Cust_name | purchase_amt |
++-----------+--------------+
+| rajesh    |        35000 |
+| rajesh    |        40000 |
+| rakesh    |        50000 |
++-----------+--------------+
+3 rows in set (0.00 sec)
+
+mysql> select name,salesman_id from salesman s,orders o where o.salesman_id=s.salesman_id and s.commission>500;
+ERROR 1052 (23000): Column 'salesman_id' in field list is ambiguous
+mysql> select name,s.salesman_id from salesman s,orders o where o.salesman_id=s.salesman_id and s.commission>500;
++---------+-------------+
+| name    | salesman_id |
++---------+-------------+
+| inchara |           9 |
+| inchara |           9 |
+| inchara |           9 |
++---------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select name,s.salesman_id from salesman s,orders o where o.salesman_id=s.salesman_id and s.commission>1500;
+Empty set (0.00 sec)
+
+mysql> select name,s.salesman_id from salesman s,orders o where o.salesman_id=s.salesman_id and s.commission>900;
+Empty set (0.00 sec)
+
+mysql> select name,s.salesman_id from salesman s,orders o where o.salesman_id=s.salesman_id and s.commission>=900;
++---------+-------------+
+| name    | salesman_id |
++---------+-------------+
+| inchara |           9 |
+| inchara |           9 |
+| inchara |           9 |
++---------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> select distinct name,s.salesman_id from salesman s,orders o where o.salesman_id=s.salesman_id and s.commission>=900;
++---------+-------------+
+| name    | salesman_id |
++---------+-------------+
+| inchara |           9 |
++---------+-------------+
+1 row in set (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
