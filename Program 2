@@ -1,1 +1,267 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.0.34 MySQL Community Server - GPL
 
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database supplier;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use supplier;
+Database changed
+mysql> create table supplier;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> create table supplier(sid int primary key,sname char(20),address varchar(40));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table part(pid int primary key,pname varchar(20),color varchar(20));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> create table catalog(sid int,pid int,cost real,primary key(sid,pid),foreign key(sid) references supplier(sid),foreign key(pid) references part(pid));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc supplier;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| sid     | int         | NO   | PRI | NULL    |       |
+| sname   | char(20)    | YES  |     | NULL    |       |
+| address | varchar(40) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc part;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| pid   | int         | NO   | PRI | NULL    |       |
+| pname | varchar(20) | YES  |     | NULL    |       |
+| color | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc catalog;
++-------+--------+------+-----+---------+-------+
+| Field | Type   | Null | Key | Default | Extra |
++-------+--------+------+-----+---------+-------+
+| sid   | int    | NO   | PRI | NULL    |       |
+| pid   | int    | NO   | PRI | NULL    |       |
+| cost  | double | YES  |     | NULL    |       |
++-------+--------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into supplier(sid,sname,address)values(10,'Apsara','Mumbai');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into supplier(sid,sname,address)values(5,'Natraja','Madras');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into supplier(sid,sname,address)values(7,'Flair','Pune');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into supplier(sid,sname,address)values(1,'Doms','Bengaluru');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into supplier(sid,sname,address)values(9,'Reynolds','Mysore');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into part(pid,pname,color)values(1,'pencil',red);
+ERROR 1054 (42S22): Unknown column 'red' in 'field list'
+mysql> insert into part(pid,pname,color)values(1,'pencil','red');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into part(pid,pname,color)values(5,'pencil','black');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into part(pid,pname,color)values(7,'pen','black');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into part(pid,pname,color)values(9,'pen','blue');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into part(pid,pname,color)values(19,'book','white');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into part(pid,pname,color)values(11,'cardboard','brown');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from supplier;
++-----+----------+-----------+
+| sid | sname    | address   |
++-----+----------+-----------+
+|   1 | Doms     | Bengaluru |
+|   5 | Natraja  | Madras    |
+|   7 | Flair    | Pune      |
+|   9 | Reynolds | Mysore    |
+|  10 | Apsara   | Mumbai    |
++-----+----------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from part;
++-----+-----------+-------+
+| pid | pname     | color |
++-----+-----------+-------+
+|   1 | pencil    | red   |
+|   5 | pencil    | black |
+|   7 | pen       | black |
+|   9 | pen       | blue  |
+|  11 | cardboard | brown |
+|  19 | book      | white |
++-----+-----------+-------+
+6 rows in set (0.00 sec)
+
+mysql> insert into catalog(sid,pid,cost)values(1,1,15);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into catalog(sid,pid,cost)values(10,1,25);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into catalog(sid,pid,cost)values(7,9,25);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into catalog(sid,pid,cost)values(9,7,35);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into catalog(sid,pid,cost)values(5,11,350);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into catalog(sid,pid,cost)values(9,19,50);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from catalog;
++-----+-----+------+
+| sid | pid | cost |
++-----+-----+------+
+|   1 |   1 |   15 |
+|   5 |  11 |  350 |
+|   7 |   9 |   25 |
+|   9 |   7 |   35 |
+|   9 |  19 |   50 |
+|  10 |   1 |   25 |
++-----+-----+------+
+6 rows in set (0.00 sec)
+
+mysql> selec sid ,sname from supplier;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selec sid ,sname from supplier' at line 1
+mysql> select sid ,sname from supplier;
++-----+----------+
+| sid | sname    |
++-----+----------+
+|   1 | Doms     |
+|   5 | Natraja  |
+|   7 | Flair    |
+|   9 | Reynolds |
+|  10 | Apsara   |
++-----+----------+
+5 rows in set (0.00 sec)
+
+mysql> select pid,pname,color from part,catalog where part.pid=catalog.pid and catalog.cost=(select max(cost) from catalog);
+ERROR 1052 (23000): Column 'pid' in field list is ambiguous
+mysql> select pname,color from part,catalog where part.pid=catalog.pid and catalog.cost=(select max(cost) from catalog);
++-----------+-------+
+| pname     | color |
++-----------+-------+
+| cardboard | brown |
++-----------+-------+
+1 row in set (0.00 sec)
+
+mysql> select pname,color,part.pid from part,catalog where part.pid=catalog.pid and catalog.cost=(select max(cost) from catalog);
++-----------+-------+-----+
+| pname     | color | pid |
++-----------+-------+-----+
+| cardboard | brown |  11 |
++-----------+-------+-----+
+1 row in set (0.00 sec)
+
+mysql> select pname from part,catalog where part.pid=catalod.pid;
+ERROR 1054 (42S22): Unknown column 'catalod.pid' in 'where clause'
+mysql> select pname from part,catalog where part.pid=catalog.pid;
++-----------+
+| pname     |
++-----------+
+| pencil    |
+| pencil    |
+| pen       |
+| pen       |
+| cardboard |
+| book      |
++-----------+
+6 rows in set (0.00 sec)
+
+mysql> insert into part(pid,pname,color)values(20,'eraser',white);
+ERROR 1054 (42S22): Unknown column 'white' in 'field list'
+mysql> insert into part(pid,pname,color)values(20,'eraser','white');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select pname from part,catalog where part.pid=catalog.pid;
++-----------+
+| pname     |
++-----------+
+| pencil    |
+| pencil    |
+| pen       |
+| pen       |
+| cardboard |
+| book      |
++-----------+
+6 rows in set (0.00 sec)
+
+mysql> select distinct supplier.sid from supplier s,part p,catalog c where s.sid=c.sid and c.pid=p.pid and (color='black' and color='white');
+ERROR 1054 (42S22): Unknown column 'supplier.sid' in 'field list'
+mysql> select distinct sid from supplier s,part p,catalog c where s.sid=c.sid and c.pid=p.pid and (color='black' and color='white');
+ERROR 1052 (23000): Column 'sid' in field list is ambiguous
+mysql> select distinct supplier.sid from supplier s,part p,catalog c where s.sid=c.sid and c.pid=p.pid and (color='black' and color='white');
+ERROR 1054 (42S22): Unknown column 'supplier.sid' in 'field list'
+mysql> select distinct s.sid from supplier s,part p,catalog c where s.sid=c.sid and c.pid=p.pid and (color='black' and color='white');
+Empty set (0.00 sec)
+
+mysql> select distinct s.sid from supplier s,part p,catalog c where s.sid=c.sid and c.pid=p.pid and (color='black' && color='white');
+Empty set, 1 warning (0.00 sec)
+
+mysql> delete from part where pid=20;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select distinct s.sid from supplier s,part p,catalog c where s.sid=c.sid and c.pid=p.pid and (color='black' or color='white');
++-----+
+| sid |
++-----+
+|   9 |
++-----+
+1 row in set (0.00 sec)
+
+mysql> select distinct s.sid from supplier s,part p,catalog c where s.sid=c.sid and c.pid=p.pid and (color='black' or color='brown');
++-----+
+| sid |
++-----+
+|   9 |
+|   5 |
++-----+
+2 rows in set (0.00 sec)
+
+mysql> select sid from catalog c,part p where c.pid=p.pid and p.color=black;
+ERROR 1054 (42S22): Unknown column 'black' in 'where clause'
+mysql> select sid from catalog c,part p where c.pid=p.pid and p.color='black';
++-----+
+| sid |
++-----+
+|   9 |
++-----+
+1 row in set (0.00 sec)
+
+mysql> select sname from supplier where address='bengaluru';
++-------+
+| sname |
++-------+
+| Doms  |
++-------+
+1 row in set (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
