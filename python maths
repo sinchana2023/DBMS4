@@ -1,0 +1,261 @@
+
+linear independent and dependent
+from sympy import *
+
+A = Matrix([[-1, 2, 3, 1], [3, 4, 6, 1], [2, -1, 4, 1]]).T
+[m, n] = A.shape  # m represents the number of rows
+r = A.rank()
+if r == n:
+    print('Given vectors are linearly independent')
+else:
+    print('Given vectors are linearly dependent')
+
+
+Linear combination
+
+import numpy as np 
+import matplotlib.pyplot as plt 
+u=np.array([[2],[0]])
+v=np.array([[0],[3]])
+w=np.array([[1],[3]])
+c1=1
+c2=2
+c3=3
+V=c1*u+c2*v+c3*w
+print(V)
+plt.arrow(0,0, 2,0 , color='r',head_width=0.25, head_length=0.25)
+plt.arrow(0,0, 0,3 , color='g',head_width=0.25, head_length=0.25)
+plt.arrow(0,0, 1,3 , color='y',head_width=0.25, head_length=0.25)
+plt.arrow(0,0,5,15 , color='r',head_width=0.25,head_length=0.25)
+plt.grid()
+plt.show()
+
+Linear combination of vector
+import numpy as np
+v = [3, 4, 1]
+v1 = [1, 2, 0]
+v2 = [2, 4, 1]
+v3 = [1, 1, 1]
+A = np.matrix([v1, v2, v3]).T
+[m,n]=np.shape(A)
+r=np.linalg.matrix_rank(A)
+b = np.array(v).reshape(-1, 1)
+if r==n:
+    coefficients = np.linalg.solve(A, b)
+    linear_combination = (coefficients[0] * v1 + coefficients[1] * v2 + coefficients[2] * v3)
+    print(linear_combination)
+    print('v=',coefficients[0],'* v1 +', coefficients[1],' * v2 +', coefficients[2],' * v3')
+else:
+    print("It is not possible to express v as linear combination of given vectors")
+
+3.Row space,col space,Null space
+from sympy import *
+A=Matrix([[1,2,3],[4,5,6],[7,8,9]])
+row_space=Matrix(A.rowspace())
+col_space=Matrix([A.columnspace()])
+display('Basis of row space are',row_space)
+display('Basis of column_space are',col_space)
+print('dimension of row space=dimension of Column space=',A.rank())
+NSpace=A.nullspace()
+display('The basis for Nullspace is',NSpace)
+print('dimesion of Null Sapce=',len(NSpace))
+
+
+Rank Nullity theorem
+
+from sympy import *
+A = Matrix([[1, 2, 3,1],[4, 8, 12,4],[3, 6, 9,3]])
+display("Given matrix:",A)
+[m,n]=shape(A)
+r=A.rank()
+print('Rank of the linear transformation=',r)
+NullSpace = A.nullspace()
+nullity=len(NullSpace)
+print('nullity of the linear transformation=',nullity)
+if r + nullity == n:
+   print("Rank-nullity theorem holds.")
+else:
+   print("Rank-nullity theorem does not hold.")
+
+Eigen values and Eigen Vectors
+#eigen values and eigen vectors using numpy
+from numpy import *
+A=matrix([[1,2,3],[0,5,9],[0,0,1]])
+X=linalg.eig(A)
+display(X)
+
+
+#eigen values and their algebraic multiplicity along with their eigen vectors
+from sympy import *
+from sympy.abc import *
+A=Matrix([[1,2,3],[0,5,9],[0,0,1]])
+X=Matrix.eigenvects(A)
+pprint(X)
+
+
+Reflection
+
+%matplotlib inline
+from math import pi, sin, cos
+import matplotlib.pyplot as plt
+import numpy as np
+coords = np.array([[0,0],[0.5,0.5],[0.5,1.5],[0,1],[0,0]])
+coords = coords.transpose()
+coords
+x = coords[0,:]
+y = coords[1,:]
+A = np.array([[2,0],[0,1]])
+A_coords = A@coords
+B = np.array([[0,-1],[-1,0]])
+B_coords = B@coords
+x_LT2 = B_coords[0,:]
+y_LT2 = B_coords[1,:]
+# Create the figure and axes objects
+fig, ax = plt.subplots()
+# Plot the points. x and y are original vectors, x_LT1 and y_LT1 are images
+ax.plot(x,y,'ro')
+ax.plot(x_LT2,y_LT2,'bo')
+# Connect the points by lines
+ax.plot(x,y,'r',ls="--")
+ax.plot(x_LT2,y_LT2,'b')
+# Edit some settings
+ax.axvline(x=0,color="k",ls=":")
+ax.axhline(y=0,color="k",ls=":")
+ax.grid(True)
+ax.axis([-2,2,-1,2])
+ax.set_aspect('equal')
+ax.set_title("Reflection");
+
+Horizontal Stretch
+
+%matplotlib inline
+from math import pi, sin, cos
+import matplotlib.pyplot as plt
+import numpy as np
+coords = np.array([[0,0],[0.5,0.5],[0.5,1.5],[0,1],[0,0]])
+coords = coords.transpose()
+coords
+x = coords[0,:]
+y = coords[1,:]
+A = np.array([[2,0],[0,1]])
+A_coords = A@coords
+x_LT1 = A_coords[0,:]
+y_LT1 = A_coords[1,:]
+# Create the figure and axes objects
+fig, ax = plt.subplots()
+# Plot the points. x and y are original vectors, x_LT1 and y_LT1 are images
+ax.plot(x,y,'ro')
+ax.plot(x_LT1,y_LT1,'bo')
+# Connect the points by lines
+ax.plot(x,y,'r',ls="--")
+ax.plot(x_LT1,y_LT1,'b')
+# Edit some settings
+ax.axvline(x=0,color="k",ls=":")
+ax.axhline(y=0,color="k",ls=":")
+ax.grid(True)
+ax.axis([-2,2,-1,2])
+ax.set_aspect('equal')
+ax.set_title("Horizontal Stretch");
+
+
+Rotation
+
+%matplotlib inline
+from math import pi, sin, cos
+import matplotlib.pyplot as plt
+import numpy as np
+coords = np.array([[0,0],[0.5,0.5],[0.5,1.5],[0,1],[0,0]])
+coords = coords.transpose()
+coords
+x = coords[0,:]
+y = coords[1,:]
+A = np.array([[2,0],[0,1]])
+A_coords = A@coords
+theta = pi/6
+R = np.array([[cos(theta),-sin(theta)],[sin(theta),cos(theta)]])
+R_coords = R@coords
+x_LT3 = R_coords[0,:]
+y_LT3 = R_coords[1,:]
+# Create the figure and axes objects
+fig, ax = plt.subplots()
+# Plot the points. x and y are original vectors, x_LT1 and y_LT1 are images
+ax.plot(x,y,'ro')
+ax.plot(x_LT3,y_LT3,'bo')
+# Connect the points by lines
+ax.plot(x,y,'r',ls="--")
+ax.plot(x_LT3,y_LT3,'b')
+# Edit some settings
+ax.axvline(x=0,color="k",ls=":")
+ax.axhline(y=0,color="k",ls=":")
+ax.grid(True)
+ax.axis([-2,2,-1,2])
+ax.set_aspect('equal')
+ax.set_title("Rotation");
+
+
+Shearing
+
+%matplotlib inline
+from math import pi, sin, cos
+import matplotlib.pyplot as plt
+import numpy as np
+coords = np.array([[0,0],[0.5,0.5],[0.5,1.5],[0,1],[0,0]])
+coords = coords.transpose()
+coords
+x = coords[0,:]
+y = coords[1,:]
+A = np.array([[2,0],[0,1]])
+A_coords = A@coords
+S = np.array([[1,2],[0,1]])
+S_coords = S@coords
+x_LT4 = S_coords[0,:]
+y_LT4 = S_coords[1,:]
+# Create the figure and axes objects
+fig, ax = plt.subplots()
+# Plot the points. x and y are original vectors, x_LT1 and y_LT1 are images
+ax.plot(x,y,'ro')
+ax.plot(x_LT4,y_LT4,'bo')
+# Connect the points by lines
+ax.plot(x,y,'r',ls="--")
+ax.plot(x_LT4,y_LT4,'b')
+# Edit some settings
+ax.axvline(x=0,color="k",ls=":")
+ax.axhline(y=0,color="k",ls=":")
+ax.grid(True)
+ax.axis([-2,4,-1,2])
+ax.set_aspect('equal')
+ax.set_title("Shear");
+
+Composite of Transformation
+
+%matplotlib inline
+from math import pi, sin, cos
+import matplotlib.pyplot as plt
+import numpy as np
+coords = np.array([[0,0],[0.5,0.5],[0.5,1.5],[0,1],[0,0]])
+coords = coords.transpose()
+coords
+x = coords[0,:]
+y = coords[1,:]
+A = np.array([[2,0],[0,1]])
+A_coords = A@coords
+theta = pi/6
+C = np.array([[sin(theta),-cos(theta)],[-cos(theta),-sin(theta)]])
+C_coords = C@coords
+x_LT5 = C_coords[0,:]
+y_LT5 = C_coords[-1,:]
+# Create the figure and axes objects
+fig, ax = plt.subplots()
+# Plot the points. x and y are original vectors, x_LT1 and y_LT1 are images
+ax.plot(x,y,'ro')
+ax.plot(x_LT5,y_LT5,'bo')
+# Connect the points by lines
+ax.plot(x,y,'r',ls="--")
+ax.plot(x_LT5,y_LT5,'b')
+# Edit some settings
+ax.axvline(x=0,color="k",ls=":")
+ax.axhline(y=0,color="k",ls=":")
+ax.grid(True)
+ax.axis([-1.5,1.5,-1.5,1.6])
+ax.set_aspect('equal')
+
